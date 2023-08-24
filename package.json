@@ -1,0 +1,15 @@
+{
+  "dependencies": {
+    "handlebars": "^4.7.8"
+  },
+  "scripts": {
+    "generate": "node ./templates/template.js",
+    "create": "node ./utils/create.js",
+    "mine": "node ./utils/mine.js",
+    "regtest": "sh ./utils/regtest.sh",
+    "balance": "ord -r wallet balance",
+    "server": "sh ./utils/server.sh",
+    "inscribe": "node ./utils/inscribe.js",
+    "opm": "node ./utils/opm.js"
+  }
+}
