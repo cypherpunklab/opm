@@ -15,12 +15,12 @@ let libraries = JSON.parse(fs.readFileSync('./regtest.json', 'utf8'));
 let html = template({ MatterJS: libraries.MatterJS });
 
 // Check if build directory exists, if not, create it
-if (!fs.existsSync('../build')) {
-  fs.mkdirSync('../build');
+if (!fs.existsSync('./build')) {
+  fs.mkdirSync('./build');
 }
 
 // Write the HTML to a new file in the build directory
-fs.writeFileSync('../build/inscription.html', html);
+fs.writeFileSync('./build/inscription.html', html);
 
 async function inscribe() {
   // inscribe the HTML file
