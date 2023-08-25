@@ -12,7 +12,7 @@ function generateBlocks(num = 1) {
 
     const receive_address = JSON.parse(stdout.trim()).address;
 
-    const cmd = `bitcoin-cli generatetoaddress ${num_blocks} ${receive_address}`;
+    const cmd = `bitcoin-cli -chain=regtest generatetoaddress ${num_blocks} ${receive_address}`;
 
     exec(cmd, (error, stdout, stderr) => {
       if (error) {
