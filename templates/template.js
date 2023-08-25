@@ -1,6 +1,8 @@
 const fs = require('fs');
 const Handlebars = require('handlebars');
 const execSync = require('child_process').execSync;
+const path = require('path');
+const dir = path.join(__dirname, '../build');
 
 // Read template file
 let templateFile = fs.readFileSync('./templates/template.html', 'utf8');
@@ -24,9 +26,10 @@ fs.writeFileSync('./build/inscription.html', html);
 
 async function inscribe() {
   // inscribe the HTML file
-  await execSync(
-    `ord -r wallet inscribe ../build/inscription.html --fee-rate 1 --no-backup`
-  );
+
+  const command = `ord -r wallet inscribe ${dir}/inscription.html --fee-rate 1 --no-backup`;
+
+  await execSync(command);
 
   // mine the inscription
   let receiveAddress = execSync('ord -r wallet receive');

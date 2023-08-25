@@ -61,9 +61,8 @@ async function run() {
 
     let inscriptions = {};
     fs.readdirSync(dir).forEach((file) => {
-      let output = execSync(
-        `ord -r wallet inscribe ${dir}/${file} --fee-rate 1 --no-backup`
-      );
+      const command = `ord -r wallet inscribe ${dir}/${file} --fee-rate 1 --no-backup`;
+      let output = execSync(command);
       const outputString = output.toString();
       const outputObj = JSON.parse(outputString);
 
@@ -79,6 +78,7 @@ async function run() {
     receiveAddress = JSON.parse(receiveAddress).address;
 
     await execSync(`bitcoin-cli generatetoaddress 1 ${receiveAddress}`);
+    console.log('Libraries mined!');
   } catch (error) {
     console.error('Error:', error);
   }
