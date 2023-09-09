@@ -21,7 +21,7 @@ async function main() {
     receiveAddress = receiveAddress.toString().trim();
     receiveAddress = JSON.parse(receiveAddress).address;
 
-    await executeCommand(`bitcoin-cli -chain=regtest generatetoaddress 120 ${receiveAddress}`);
+    await executeCommand(`bitcoin-cli -regtest generatetoaddress 120 ${receiveAddress}`);
 
     let balance = await executeCommand('ord -r wallet balance');
     balance = balance.toString().trim();

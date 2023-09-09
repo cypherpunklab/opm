@@ -77,7 +77,7 @@ async function run() {
     receiveAddress = receiveAddress.toString().trim();
     receiveAddress = JSON.parse(receiveAddress).address;
 
-    await execSync(`bitcoin-cli -chain=regtest generatetoaddress 1 ${receiveAddress}`);
+    await execSync(`bitcoin-cli -regtest generatetoaddress 1 ${receiveAddress}`);
     console.log('Libraries mined!');
   } catch (error) {
     console.error('Error:', error);
