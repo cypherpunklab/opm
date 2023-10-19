@@ -24,6 +24,12 @@ function downloadLibrary(library, inscriptionId) {
         case 'text/plain':
           ext = '.txt';
           break;
+        case 'text/html':
+          ext = '.html';
+          break;
+        case 'text/html;charset=utf-8':
+          ext = '.html';
+          break;
       }
 
       res.on('data', (chunk) => {
