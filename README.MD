@@ -94,13 +94,3 @@ Delete the `regtest` folder. When you inscribe or run the server it will reindex
 If you also want to delete the regtest blockchain that is in the regtest folder on your bitcoin data directory. This will delete your regtest wallet you will need to initialize that again.
 
 WARNING: Don't delete your mainnet index on accident it is also located in the `ord` folder.
-
-## TODO
-
-- Make packages that have recursive dependencies example react
-- Make work with mainnet
-- Make compatible with OCM three.js and other libraries under that workflow
-- Make GPT-4 library analysis tool for libraries to index what they do and what they are used for. Have it find orginal library documentation and link to it, come up with a percentage of how much the library is similar to the original library. Could also be useful for updates to libraries. This could live in its own seperate repo. With a github action.
-- Index libraries that update to new versions by inscribing to the same sat as the original library.
-- Create a global commandline tool to automate `opm.libraries.json` file creation.
-- Make it so it will skip downloading if the package already exits in the lib folder.
