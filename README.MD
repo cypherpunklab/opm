@@ -4,27 +4,26 @@ A simple package manager for Ord with a html template engine. Provides scripts t
 
 ## Requirements
 
-- Node.js
-- npm
+- [Bun](https://bun.sh/)
 - [Ord](https://github.com/ordinals/ord#installation)
 - [Bitcoin Core](https://bitcoincore.org/en/download/)
 
 ## Installation
 
 ```bash
-npm i
+bun i
 ```
 
 In one terminal run Bitcoind in regtest mode with:
 
 ```bash
-npm run regtest
+bun run regtest
 ```
 
 In another terminal initialize ord to run in regtest creating a wallet and funding it with:
 
 ```
-npm run create
+bun run create
 ```
 
 ## Importing Ord Packages
@@ -41,7 +40,7 @@ Inside the `package.opm.json` file put the package name and the mainnet `inscrip
 Download the package and inscribe them to regtest with.
 
 ```bash
-npm run opm
+bun run opm
 ```
 
 This will create a new file `regtest.json` with the package `inscriptionIds` in your local regtest blockchain.
@@ -49,12 +48,12 @@ This will create a new file `regtest.json` with the package `inscriptionIds` in 
 ## Using packages
 
 Inside the `./templates` folder create a template html file. This
-uses the `./templates/template.js` to inject the recusive `inscritionId` into the html file. This uses [handlbar.js](https://handlebarsjs.com/). The packages are injected into the html with the following syntax `{{packageName}}`.
+uses the `./templates/template.ts` to inject the recusive `inscritionId` into the html file. This uses [handlbar.js](https://handlebarsjs.com/). The packages are injected into the html with the following syntax `{{packageName}}`.
 
 Run the following command to create the html file and inscribe it to regtest. The file will be created in the `./build` folder.
 
 ```
-npm run generate
+bun run generate
 ```
 
 ## Viewing the html file
@@ -62,7 +61,7 @@ npm run generate
 run the ord server in regtest mode with:
 
 ```
-npm run server
+bun run server
 ```
 
 Then open the browser to `http://localhost:8080/`
@@ -72,13 +71,13 @@ Then open the browser to `http://localhost:8080/`
 Getting more sats to inscribe with or to mine an inscription. It will default to 1 block unless more are specified. Mine 100 blocks with:
 
 ```
-npm run mine 100
+bun run mine 100
 ```
 
 Inscribe a file to regtest with:
 
 ```
-npm run inscribe <file>
+bun run inscribe <file>
 ```
 
 ## Troubleshooting
