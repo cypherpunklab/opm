@@ -1,13 +1,15 @@
-const fs = require('fs');
-const https = require('https');
-const { EXPLORER } = require('../constants');
-const execSync = require('child_process').execSync;
-const path = require('path');
-const dir = path.join(__dirname, '../lib');
+import fs from "fs"
+import https from "https"
+import { EXPLORER } from "../constants";
+import { execSync } from "child_process";
+import path from "path"
 
-const libraries = require('../package.opm.json');
+// This will work only in Bun
+const dir = path.join(import.meta.dir, "../lib")
 
-function downloadLibrary(library, inscriptionId) {
+import libraries from "../package.opm.json"
+
+function downloadLibrary(library: string, inscriptionId: string) {
   return new Promise((resolve, reject) => {
     const path = `${EXPLORER}/content/${inscriptionId}`;
     https.get(path, (res) => {
@@ -75,15 +77,16 @@ async function run() {
       inscriptions[path.parse(file).name] = outputObj.inscription;
     });
 
-    const jsonFilePath = path.join(__dirname, '../regtest.json');
+    // This will work only in Bun
+    const jsonFilePath = path.join(import.meta.dir, '../regtest.json');
     fs.writeFileSync(jsonFilePath, JSON.stringify(inscriptions, null, 2));
     console.log(`Inscriptions saved to ${jsonFilePath}`);
 
-    let receiveAddress = await execSync('ord -r wallet receive');
+    let receiveAddress: string | Buffer = execSync('ord -r wallet receive');
     receiveAddress = receiveAddress.toString().trim();
     receiveAddress = JSON.parse(receiveAddress).address;
 
-    await execSync(`bitcoin-cli -regtest generatetoaddress 1 ${receiveAddress}`);
+    execSync(`bitcoin-cli -regtest generatetoaddress 1 ${receiveAddress}`);
     console.log('Libraries mined!');
   } catch (error) {
     console.error('Error:', error);

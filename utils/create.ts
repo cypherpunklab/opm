@@ -1,8 +1,8 @@
 #!/usr/bin/env node
 
-const { exec } = require('child_process');
+import { exec } from "child_process"
 
-function executeCommand(command) {
+function executeCommand(command: string) {
   return new Promise((resolve, reject) => {
     exec(command, (error, stdout, stderr) => {
       if (error) {
@@ -17,17 +17,17 @@ function executeCommand(command) {
 async function main() {
   try {
     await executeCommand('ord -r wallet create');
-    let receiveAddress = await executeCommand('ord -r wallet receive');
+    let receiveAddress = await executeCommand('ord -r wallet receive') as any;
     receiveAddress = receiveAddress.toString().trim();
     receiveAddress = JSON.parse(receiveAddress).address;
 
     await executeCommand(`bitcoin-cli -regtest generatetoaddress 120 ${receiveAddress}`);
 
-    let balance = await executeCommand('ord -r wallet balance');
+    let balance = await executeCommand('ord -r wallet balance') as any;
     balance = balance.toString().trim();
     balance = JSON.parse(balance);
     console.log('Initialized ord wallet');
-  } catch (error) {
+  } catch (error: any) {
     console.error(`Error: ${error.message}`);
   }
 }

@@ -3,13 +3,22 @@
     "handlebars": "^4.7.8"
   },
   "scripts": {
-    "generate": "node ./templates/template.js",
-    "create": "node ./utils/create.js",
-    "mine": "node ./utils/mine.js",
+    "generate": "bun ./templates/template.ts",
+    "create": "bun ./utils/create.ts",
+    "mine": "bun ./utils/mine.ts",
     "regtest": "sh ./utils/regtest.sh",
     "balance": "ord -r wallet balance",
     "server": "sh ./utils/server.sh",
-    "inscribe": "node ./utils/inscribe.js",
-    "opm": "node ./utils/opm.js"
+    "inscribe": "bun ./utils/inscribe.ts",
+    "opm": "bun ./utils/opm.ts"
+  },
+  "name": "opm",
+  "module": "index.ts",
+  "type": "module",
+  "devDependencies": {
+    "bun-types": "latest"
+  },
+  "peerDependencies": {
+    "typescript": "^5.0.0"
   }
 }

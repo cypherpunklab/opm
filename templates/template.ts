@@ -1,8 +1,10 @@
-const fs = require('fs');
-const Handlebars = require('handlebars');
-const execSync = require('child_process').execSync;
-const path = require('path');
-const dir = path.join(__dirname, '../build');
+import fs from "fs"
+import Handlebars from "handlebars"
+import { execSync } from "child_process";
+import path from "path"
+
+// This will work only in Bun
+const  dir = path.join(import.meta.dir, "../build")
 
 // Read template file
 let templateFile = fs.readFileSync('./templates/template.html', 'utf8');
@@ -32,7 +34,7 @@ async function inscribe() {
   await execSync(command);
 
   // mine the inscription
-  let receiveAddress = execSync('ord -r wallet receive');
+  let receiveAddress: string | Buffer = execSync('ord -r wallet receive');
   receiveAddress = receiveAddress.toString().trim();
   receiveAddress = JSON.parse(receiveAddress).address;
 
