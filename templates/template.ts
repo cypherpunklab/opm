@@ -2,6 +2,9 @@ import fs from "fs"
 import Handlebars from "handlebars"
 import { execSync } from "child_process";
 import path from "path"
+import { isOrdVersionGreaterOrEqual } from "../utils/checkordversion";
+
+const isOrdV_GTE_0_10_0 = isOrdVersionGreaterOrEqual("0.10.0");
 
 // This will work only in Bun
 const  dir = path.join(import.meta.dir, "../build")
@@ -29,7 +32,7 @@ fs.writeFileSync('./build/inscription.html', html);
 async function inscribe() {
   // inscribe the HTML file
 
-  const command = `ord -r wallet inscribe ${dir}/inscription.html --fee-rate 1 --no-backup`;
+  const command = `ord -r wallet inscribe ${isOrdV_GTE_0_10_0 ? "--file": ""} ${dir}/inscription.html --fee-rate 1 --no-backup`;
 
   await execSync(command);
 
