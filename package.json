@@ -15,6 +15,7 @@
   "name": "opm",
   "type": "module",
   "devDependencies": {
+    "@types/node": "^20.8.8",
     "bun-types": "latest"
   },
   "peerDependencies": {
