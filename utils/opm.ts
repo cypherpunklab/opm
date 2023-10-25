@@ -9,52 +9,38 @@ const dir = path.join(import.meta.dir, "../lib")
 
 import libraries from "../package.opm.json"
 
-function downloadLibrary(library: string, inscriptionId: string) {
-  return new Promise((resolve, reject) => {
-    const path = `${EXPLORER}/content/${inscriptionId}`;
-    https.get(path, (res) => {
-      let data = '';
-      let ext = '';
+async function downloadLibrary(library: string, inscriptionId: string) {
+  const path = `${EXPLORER}/content/${inscriptionId}`;
+  const response = await fetch(path);
+  let data = await response.text();
+  let ext = '';
 
-      switch (res.headers['content-type']) {
-        case 'text/javascript':
-          ext = '.js';
-          break;
-        case 'text/css':
-          ext = '.css';
-          break;
-        case 'text/plain':
-          ext = '.txt';
-          break;
-        case 'text/html':
-          ext = '.html';
-          break;
-        case 'text/html;charset=utf-8':
-          ext = '.html';
-          break;
-      }
+  switch (response.headers.get('content-type')) {
+    case 'text/javascript':
+      ext = '.js';
+      break;
+    case 'text/css':
+      ext = '.css';
+      break;
+    case 'text/plain':
+      ext = '.txt';
+      break;
+    case 'text/html':
+      ext = '.html';
+      break;
+    case 'text/html;charset=utf-8':
+      ext = '.html';
+      break;
+  }
 
-      res.on('data', (chunk) => {
-        data += chunk;
-      });
+  if (!fs.existsSync(dir)) {
+    fs.mkdirSync(dir);
+  }
 
-      res.on('end', () => {
-        if (!fs.existsSync(dir)) {
-          fs.mkdirSync(dir);
-        }
-
-        const filePath = `${dir}/${library}${ext}`;
-        fs.writeFile(filePath, data, (err) => {
-          if (err) {
-            reject(err);
-            return;
-          }
-          console.log(`The file ${filePath} has been saved!`);
-          resolve(library);
-        });
-      });
-    });
-  });
+  const filePath = `${dir}/${library}${ext}`;
+  fs.writeFileSync(filePath, data);
+  console.log(`The file ${filePath} has been saved!`);
+  return library;
 }
 
 async function run() {
@@ -69,7 +55,7 @@ async function run() {
 
     let inscriptions = {};
     fs.readdirSync(dir).forEach((file) => {
-      const command = `ord -r wallet inscribe ${dir}/${file} --fee-rate 1 --no-backup`;
+      const command = `ord -r wallet inscribe --file ${dir}/${file} --fee-rate 1 --no-backup`;
       let output = execSync(command);
       const outputString = output.toString();
       const outputObj = JSON.parse(outputString);
