@@ -1,6 +1,6 @@
-const { exec } = require('child_process');
+import { exec } from "child_process";
 
-function runCommand(filename) {
+function runCommand(filename: string) {
   return new Promise((resolve, reject) => {
     const command = `ord -r wallet inscribe ${filename} --fee-rate 1 --no-backup`;
     console.log(command);
