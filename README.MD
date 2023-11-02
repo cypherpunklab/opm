@@ -61,8 +61,10 @@ bun run generate
 run the ord server in regtest mode with:
 
 ```
-bun run server
+sh server.sh
 ```
+
+will default to 8080 unless a port is passed `sh server 3000`
 
 Then open the browser to `http://localhost:8080/`
 

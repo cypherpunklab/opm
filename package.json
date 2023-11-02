@@ -4,11 +4,7 @@
   },
   "scripts": {
     "generate": "bun ./templates/template.ts",
-    "create": "bun ./utils/create.ts",
-    "mine": "bun ./utils/mine.ts",
-    "regtest": "sh ./utils/regtest.sh",
     "balance": "ord -r wallet balance",
-    "server": "sh ./utils/server.sh",
     "inscribe": "bun ./utils/inscribe.ts",
     "opm": "bun ./utils/opm.ts"
   },
