@@ -19,7 +19,7 @@ let template = Handlebars.compile(templateFile);
 let libraries = JSON.parse(fs.readFileSync('./regtest.json', 'utf8'));
 
 // Generate the HTML
-let html = template({ MatterJS: libraries.MatterJS });
+let html = template({ compress: libraries.compress });
 
 // Check if build directory exists, if not, create it
 if (!fs.existsSync('./build')) {
