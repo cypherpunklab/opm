@@ -17,13 +17,13 @@ bun i
 In one terminal run Bitcoind in regtest mode with:
 
 ```bash
-sh regtest.sh
+bun run regtest
 ```
 
 In another terminal initialize ord to run in regtest creating a wallet and funding it with:
 
 ```
-sh create.sh
+bun run create
 ```
 
 ## Importing Ord Packages
@@ -71,7 +71,7 @@ Then open the browser to `http://localhost:8080/`
 Getting more sats to inscribe with or to mine an inscription. It will default to 1 block unless more are specified. Mine 100 blocks with:
 
 ```
-sh mine.sh 100
+bun run mine 100
 ```
 
 Inscribe a file to regtest with:
