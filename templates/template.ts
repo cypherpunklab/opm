@@ -41,7 +41,8 @@ async function inscribe() {
   receiveAddress = receiveAddress.toString().trim();
   receiveAddress = JSON.parse(receiveAddress).address;
 
-  await execSync(`bitcoin-cli generatetoaddress 1 ${receiveAddress}`);
+  await execSync(`bitcoin-cli -regtest generatetoaddress 1 ${receiveAddress}`);
+
   console.log('Inscription mined!');
 }
 
