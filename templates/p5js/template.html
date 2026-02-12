@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <style>
+      body {
+        margin: 0;
+        overflow: hidden;
+      }
+    </style>
+  </head>
+  <body>
+    <script>
+      // OCM loader — fetches fflate from OCM Dimensions + p5.js from its own inscription
+      (async function () {
+        try {
+          // Fetch OCM Dimensions inscription for fflate
+          const resp = await fetch("/content/{{OCMDimensions}}");
+          if (!resp.ok) throw new Error("Fetch failed: " + resp.status);
+          const html = await resp.text();
+          const lines = html.split("\n");
+          const fflateCode = lines[28];
+
+          // Fetch p5.js library inscription
+          const p5resp = await fetch("/content/{{p5js}}");
+          if (!p5resp.ok) throw new Error("p5.js fetch failed: " + p5resp.status);
+          const p5Code = await p5resp.text();
+
+          // Load fflate + p5.js
+          const s = document.createElement("script");
+          s.innerHTML = fflateCode + ';\nconst d3="' + p5Code + '"';
+          document.body.appendChild(s);
+
+          // Load p5 from the string
+          const p5Script = document.createElement("script");
+          p5Script.innerHTML = p5Code;
+          document.body.appendChild(p5Script);
+
+          // User code runs after libraries are loaded
+          userCode();
+        } catch (e) {
+          console.error("Failed to load OCM libraries:", e);
+        }
+      })();
+
+      function userCode() {
+        // ── YOUR P5.JS CODE BELOW ──
+
+        new p5(function (p) {
+          p.setup = function () {
+            p.createCanvas(p.windowWidth, p.windowHeight);
+            p.background(0);
+          };
+
+          p.draw = function () {
+            p.fill(p.random(255), p.random(255), p.random(255), 50);
+            p.noStroke();
+            p.ellipse(p.mouseX, p.mouseY, 50, 50);
+          };
+
+          p.windowResized = function () {
+            p.resizeCanvas(p.windowWidth, p.windowHeight);
+          };
+        });
+
+        // ── YOUR P5.JS CODE ABOVE ──
+      }
+    </script>
+  </body>
+</html>

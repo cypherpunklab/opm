@@ -4,6 +4,8 @@
   },
   "scripts": {
     "generate": "bun ./templates/template.ts",
+    "generate:threejs": "bun ./templates/threejs/template.ts",
+    "generate:p5js": "bun ./templates/p5js/template.ts",
     "balance": "ord -r wallet balance",
     "inscribe": "bun ./utils/inscribe.ts",
     "opm": "bun ./utils/opm.ts"
