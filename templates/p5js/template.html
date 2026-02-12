@@ -11,15 +11,16 @@
   </head>
   <body>
     <script>
-      // OCM loader — fetches fflate from OCM Dimensions + p5.js from its own inscription
+      // OCM p5.js loader — fetches p5.js from its on-chain inscription
+      // fflate is available from OCM Dimensions if you need compression later
       (async function () {
         try {
-          // Fetch OCM Dimensions inscription for fflate
-          const resp = await fetch("/content/{{OCMDimensions}}");
-          if (!resp.ok) throw new Error("Fetch failed: " + resp.status);
-          const html = await resp.text();
-          const lines = html.split("\n");
-          const fflateCode = lines[28];
+          // Fetch OCM Dimensions inscription (for fflate, available if needed)
+          const dimResp = await fetch("/content/{{OCMDimensions}}");
+          if (!dimResp.ok) throw new Error("OCM Dimensions fetch failed: " + dimResp.status);
+          const dimHtml = await dimResp.text();
+          const dimLines = dimHtml.split("\n");
+          const fflateCode = dimLines[28];
 
           // Fetch p5.js library inscription
           const p5resp = await fetch("/content/{{p5js}}");
@@ -28,13 +29,8 @@
 
           // Load fflate + p5.js
           const s = document.createElement("script");
-          s.innerHTML = fflateCode + ';\nconst d3="' + p5Code + '"';
+          s.innerHTML = fflateCode + ";\n" + p5Code;
           document.body.appendChild(s);
-
-          // Load p5 from the string
-          const p5Script = document.createElement("script");
-          p5Script.innerHTML = p5Code;
-          document.body.appendChild(p5Script);
 
           // User code runs after libraries are loaded
           userCode();
