@@ -39,7 +39,8 @@ async function inscribe() {
   // mine the inscription
   let receiveAddress: string | Buffer = execSync('ord -r wallet receive');
   receiveAddress = receiveAddress.toString().trim();
-  receiveAddress = JSON.parse(receiveAddress).address;
+  const parsed = JSON.parse(receiveAddress);
+  receiveAddress = parsed.addresses ? parsed.addresses[0] : parsed.address;
 
   await execSync(`bitcoin-cli -regtest generatetoaddress 1 ${receiveAddress}`);
 
